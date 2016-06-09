@@ -11,3 +11,9 @@ $pip install djangorestframework  </br>
 $pip install pygments  # We'll be using this for the code highlighting  </br>
 
 Note: To exit the virtualenv environment at any time, just type deactivate
+
+Fork this repo and clone it
+
+$git clone https://github.com/bharatsush/geotagging.git
+
+**************Enjoy***********************************
