@@ -54,6 +54,7 @@
             }
         </style>
         <script type="text/javascript">
+          
             function frm_valid() {
                 // validate  form on keyup and submit
                 f1_val = $("#search1").validate({
@@ -142,26 +143,24 @@
 
                 $("#b4").click(function () {
                     var z = frm_valid4();
+                    var lati;
+                    var longi;
                     if (z == true) {
                         var d = document.getElementById("date4").value;
                         var date = d.slice(0, -2);
                         var uid = document.getElementById("userid4").value;
                         var ur = "http://127.0.0.1:8000/mapapp/";
                         var url = ur + uid + "/" + date + "?format=json";
-                        var processed_json = new Array();
+                        //var processed_json = new Array();
                         $.getJSON(url, function (data) {
                             // Populate series
-                                        alert("in get json url");
-                            for (i = 0; i < data.length; i++) {
-                                processed_json.push([data[i].lat, data[i].lng]);
-                            }
+                                       // alert("in get json url");
+
+                            //initMap(myLatLng);
+                              initMap(data);
                             // draw chart
-                         initMap(data);
-                            
-                            
-                            
-                            
-                            
+                         
+                                                    
                         });
                     } else {
                         return false;
@@ -169,27 +168,40 @@
                 });
             });
             
-            
+
+                         var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                         var labelIndex = 0;
                         function initMap(data) {
-                          var i;
-                          for(i = 0; i < 3; i++){
-                                
-                                        var myLatLng = {lat: data[i].lat, lng: data[i].lng};
-                                        alert(data[i].lat);
-                                        var map = new google.maps.Map(document.getElementById('map'), {
-                                          zoom: 4,
-                                          center: myLatLng
-                                        });
-                                
-                                        var marker = new google.maps.Marker({
-                                          position: myLatLng,
-                                          map: map,
-                                          title: 'Hello World!'
-                                        });
-                         
+                               
+                              var myLatLng = {lat: data[0].lat, lng: data[0].lng};
+                              //alert("data[i].lat");
+                              var map = new google.maps.Map(document.getElementById('map'), {
+                                zoom: 13,
+                                center: myLatLng
+                              });
+                             for(var i=1; i<data.length;i++){
+                              myLatLng = {lat: data[i].lat, lng: data[i].lng};
+                              addMarker(myLatLng, map);                             
+                             }
+
+
                           }
-                        }            
-    
+     
+                                    
+
+                              // Adds a marker to the map.
+                         function addMarker(myLatLng, map) {
+                           // Add the marker at the clicked location, and add the next-available label
+                           // from the array of alphabetical characters.
+                           //var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+                           var marker = new google.maps.Marker({
+                             position: myLatLng,
+                             label: labels[labelIndex++ % labels.length],
+                             map: map,
+                             //icon: image
+                           });
+                         }
+                    //google.maps.event.addDomListener(window, 'load', initialize);
     
             
             

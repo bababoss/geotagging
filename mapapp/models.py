@@ -13,6 +13,7 @@ STYLE_CHOICES = sorted((item, item) for item in get_all_styles())
 class GeoData_table(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     user_id = models.IntegerField()
+    image  = models.CharField(max_length=200)
     lat = models.FloatField(blank=False, null=False)
     lng = models.FloatField(blank=False, null=False)
 

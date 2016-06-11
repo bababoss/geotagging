@@ -1,4 +1,6 @@
 from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework.urlpatterns import format_suffix_patterns
 from mapapp import views
 
@@ -15,15 +17,16 @@ urlpatterns = [
     
      #this is url query parameter for index function
     
-    #url(r'^index/$',views.index, name = 'index'),
+    url(r'^index/$',views.index, name = 'index'),
     
      #this is url query parameter for home fuction 
     
     url(r'^$',views.home, name = 'home'),
+    #url(r'^static/(?P<path>.*)$', views.serve, name='serve'),
     
     #this is url query parameter for Attendance_tableQuery class view
     
     #url(r'^user_state/(?P<user_id>[0-9]+)/(?P<year>[0-9]+)/(?P<month>[0-9]+)/(?P<day>[0-9]+)/$',views.Attendance_tableQuery.as_view()),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)

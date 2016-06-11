@@ -70,5 +70,10 @@ class GeoData_tableDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 def home(request):
-	
+
     return render(request,'mapapp/home.html',{})
+
+def index(request):
+	
+    return render(request,'mapapp/index.html',{})
+
